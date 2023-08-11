@@ -39,7 +39,7 @@ describe("cropWateringCalculatorImproved", () => {
       2
     );
     expect(result).toEqual(
-      "There are 0 days that you can skip watering your crops. You will need 2 sprinkles of water."
+      "There are 0 days that you can skip watering your crops. You will need 56 sprinkles of water."
     );
   });
 
@@ -49,19 +49,31 @@ describe("cropWateringCalculatorImproved", () => {
       2
     );
     expect(result).toEqual(
-      "There is 1 day that you can skip watering your crops. You will need 1 sprinkles of water."
+      "There is 1 day that you can skip watering your crops. You will need 54 sprinkles of water."
     );
   });
   test("function takes a mixed forecast and returns the correct string", () => {
     const result = cropWateringCalculatorImproved(mixedForecast, 32);
     expect(result).toEqual(
-      "There are 7 days that you can skip watering your crops. You will need 25 sprinkles of water."
+      "There are 7 days that you can skip watering your crops. You will need 672 sprinkles of water."
     );
   });
-  test("function returns a warning if crops are over 40 and there are not enough rainy days", () => {
-    const result = cropWateringCalculatorImproved(mixedForecast, 70);
+  test("function takes a forecast with no rain and returns the correct string", () => {
+    const result = cropWateringCalculatorImproved(noRainForecast, 32);
     expect(result).toEqual(
-      `WARNING: You don't have enough water for all your crops.`
+      "There are 0 days that you can skip watering your crops. You will need 896 sprinkles of water."
+    );
+  });
+  test("function takes a third argument, telling it to return amount of water in cans if true", () => {
+    const result = cropWateringCalculatorImproved(mixedForecast, 32, true);
+    expect(result).toEqual(
+      "There are 7 days that you can skip watering your crops. You will need 17 cans of water."
+    );
+  });
+  test("function takes a third argument, telling it to return amount of water in sprinkles if false", () => {
+    const result = cropWateringCalculatorImproved(mixedForecast, 32, false);
+    expect(result).toEqual(
+      "There are 7 days that you can skip watering your crops. You will need 672 sprinkles of water."
     );
   });
 });
