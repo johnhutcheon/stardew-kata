@@ -49,13 +49,19 @@ describe("cropWateringCalculatorImproved", () => {
       2
     );
     expect(result).toEqual(
-      "There is 1 day that you can skip watering your crops. You will need 2 sprinkles of water."
+      "There is 1 day that you can skip watering your crops. You will need 1 sprinkles of water."
     );
   });
   test("function takes a mixed forecast and returns the correct string", () => {
-    const result = cropWateringCalculatorImproved(mixedForecast, 115);
+    const result = cropWateringCalculatorImproved(mixedForecast, 32);
     expect(result).toEqual(
-      "There are 7 days that you can skip watering your crops. You will need 115 sprinkles of water."
+      "There are 7 days that you can skip watering your crops. You will need 25 sprinkles of water."
+    );
+  });
+  test("function returns a warning if crops are over 40 and there are not enough rainy days", () => {
+    const result = cropWateringCalculatorImproved(mixedForecast, 70);
+    expect(result).toEqual(
+      `WARNING: You don't have enough water for all your crops.`
     );
   });
 });
